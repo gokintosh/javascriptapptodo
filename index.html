@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body onload="fetchIssues()">
+<body onload="fetchNotes()">
     <div class="container">
         <h1>ShareNote <small>created by Gokul</small></h1>
         <div class="jumbotron">
@@ -16,25 +16,25 @@
             <form id="noteInputForm">
                 <div class="form-group">
                     <label for="noteTitleInput">Title</label>
-                    <input type="text" class="form-control" id="noteTitleInput" placeholder="Describe the issue">
+                    <input type="text" class="form-control" id="noteTitleInput" placeholder="At the moment you could only type the note here we are working on implementing the add photo option soon!!">
                 </div>
                 <div class="form-group">
-                    <label for="issueSeverityInput">Tag</label>
-                    <select id="issueSeverityInput" class="form-control">
-                        <option value="Low">Lecture</option>
-                        <option value="Medium">Exercise</option>
-                        <option value="High">Laborotory</option>
+                    <label for="noteTagInput">Tag</label>
+                    <select id="noteTagInput" class="form-control">
+                        <option value="Lecture">Lecture</option>
+                        <option value="Exercise">Exercise</option>
+                        <option value="Laborotory">Laborotory</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="issueAssignedToInput">Subject</label>
-                    <input type="text" class="form-control" id="issueAssignedToInput" placeholder="Enter Responsible...">
+                    <label for="noteSubjectInput">Subject</label>
+                    <input type="text" class="form-control" id="noteSubjectInput" placeholder="Enter the subject here..">
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
         <div class="col-lg-12">
-            <div id="issuesList">
+            <div id="notesList">
                 
             </div>
         </div>

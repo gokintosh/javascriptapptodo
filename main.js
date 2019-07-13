@@ -1,86 +1,86 @@
-document.getElementById('issueInputForm').addEventListener('submit', saveIssue);
+document.getElementById('noteInputForm').addEventListener('submit', saveNote);
 
-function saveIssue(e) {
-  var issueDesc = document.getElementById('issueDescInput').value;
-  var issueSeverity = document.getElementById('issueSeverityInput').value;
-  var issueAssignedTo = document.getElementById('issueAssignedToInput').value;
-  var issueId = chance.guid();
-  var issueStatus = 'Open';
+function saveNote(e) {
+  var noteTitle = document.getElementById('noteTitleInput').value;
+  var noteTag = document.getElementById('noteTagInput').value;
+  var noteSubject = document.getElementById('noteSubjectInput').value;
+  var noteId = chance.guid();
+  var noteStatus = 'Open';
 
-  var issue = {
-    id: issueId,
-    description: issueDesc,
-    severity: issueSeverity,
-    assignedTo: issueAssignedTo,
-    status: issueStatus
+  var note = {
+    id: noteId,
+    title: noteTitle,
+    tag: noteTag,
+    subject: noteSubject,
+    status: noteStatus
   }
 
-  if (localStorage.getItem('issues') == null) {
-    var issues = [];
-    issues.push(issue);
-    localStorage.setItem('issues', JSON.stringify(issues));
+  if (localStorage.getItem('notes') == null) {
+    var notes = [];
+    notes.push(note);
+    localStorage.setItem('notes', JSON.stringify(notes));
   } else {
-    var issues = JSON.parse(localStorage.getItem('issues'));
-    issues.push(issue);
-    localStorage.setItem('issues', JSON.stringify(issues));
+    var notes = JSON.parse(localStorage.getItem('notes'));
+    notes.push(note);
+    localStorage.setItem('notes', JSON.stringify(notes));
   }
 
-  document.getElementById('issueInputForm').reset();
+  document.getElementById('noteInputForm').reset();
 
-  fetchIssues();
+  fetchNotes();
 
   e.preventDefault();
 }
 
 function setStatusClosed(id) {
-  var issues = JSON.parse(localStorage.getItem('issues'));
+  var notes = JSON.parse(localStorage.getItem('notes'));
 
-  for (var i = 0; i < issues.length; i++) {
-    if (issues[i].id == id) {
-      issues[i].status = 'Closed';
+  for (var i = 0; i < notes.length; i++) {
+    if (notes[i].id == id) {
+      notes[i].status = 'Closed';
     }
   }
 
-  localStorage.setItem('issues', JSON.stringify(issues));
+  localStorage.setItem('notes', JSON.stringify(notes));
 
-  fetchIssues();
+  fetchNotes();
 }
 
-function deleteIssue(id) {
-  var issues = JSON.parse(localStorage.getItem('issues'));
+function deleteNote(id) {
+  var notes = JSON.parse(localStorage.getItem('notes'));
 
-  for (var i = 0; i < issues.length; i++) {
-    if (issues[i].id == id) {
-      issues.splice(i, 1);
+  for (var i = 0; i < notes.length; i++) {
+    if (notes[i].id == id) {
+      notes.splice(i, 1);
     }
   }
 
-  localStorage.setItem('issues', JSON.stringify(issues));
+  localStorage.setItem('notes', JSON.stringify(notes));
 
-  fetchIssues();
+  fetchNotes();
 }
 
-function fetchIssues() {
-  var issues = JSON.parse(localStorage.getItem('issues'));
-  var issuesList = document.getElementById('issuesList');
+function fetchNotes() {
+  var notes = JSON.parse(localStorage.getItem('notes'));
+  var notesList = document.getElementById('notesList');
 
-  issuesList.innerHTML = '';
+  notesList.innerHTML = '';
 
-  for (var i = 0; i < issues.length; i++) {
-    var id = issues[i].id;
-    var desc = issues[i].description;
-    var severity = issues[i].severity;
-    var assignedTo = issues[i].assignedTo;
-    var status = issues[i].status;
+  for (var i = 0; i < notes.length; i++) {
+    var id = notes[i].id;
+    var title = notes[i].title;
+    var tag = notes[i].tag;
+    var subject = notes[i].subject;
+    var status = notes[i].status;
 
-    issuesList.innerHTML +=   '<div class="well">'+
-                              '<h6>Issue ID: ' + id + '</h6>'+
+    notesList.innerHTML +=   '<div class="well">'+
+                              '<h6>Note ID: ' + id + '</h6>'+
                               '<p><span class="label label-info">' + status + '</span></p>'+
-                              '<h3>' + desc + '</h3>'+
-                              '<p><span class="glyphicon glyphicon-time"></span> ' + severity + '</p>'+
-                              '<p><span class="glyphicon glyphicon-user"></span> ' + assignedTo + '</p>'+
+                              '<h3>' + title + '</h3>'+
+                              '<p><span class="glyphicon glyphicon-time"></span> ' + tag + '</p>'+
+                              '<p><span class="glyphicon glyphicon-user"></span> ' + subject + '</p>'+
                               '<a href="#" onclick="setStatusClosed(\''+id+'\')" class="btn btn-warning">Close</a> '+
-                              '<a href="#" onclick="deleteIssue(\''+id+'\')" class="btn btn-danger">Delete</a>'+
+                              '<a href="#" onclick="deleteNote(\''+id+'\')" class="btn btn-danger">Delete</a>'+
                               '</div>';
   }
 }
